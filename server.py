@@ -9,5 +9,8 @@ s.bind(('127.0.0.1', 5000))
 # receive up to 64 bytes of data from the socket buffer
 data, addr = s.recvfrom(64)
 
-# print out the received message after decoring the string from utf-8 encoded bytes
-print("Received message: '" + data.decode('utf-8') + "'")
+# print out the received message after decoding the string from utf-8 encoded bytes
+print("Received message: '%s' from %s" % (data.decode('utf-8'), addr))
+
+# send back a response
+s.sendto("hi".encode('utf-8'), addr)
