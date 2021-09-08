@@ -124,3 +124,6 @@ dmypy.json
 .pyre/
 
 *.ini
+.idea/CSCI_466_Examples.iml
+
+.idea/misc.xml
