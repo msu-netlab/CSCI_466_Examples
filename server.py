@@ -2,10 +2,11 @@ import os
 import functools
 import shutil
 from http import HTTPStatus
-from http.server import SimpleHTTPRequestHandler, HTTPServer, BaseHTTPRequestHandler
+from http.server import CGIHTTPRequestHandler, HTTPServer, BaseHTTPRequestHandler
+import json
 
 
-class MyHTTPRequestHandler(SimpleHTTPRequestHandler):
+class MyHTTPRequestHandler(CGIHTTPRequestHandler):
     """A custom HTTP Request Handler based on SimpleHTTPRequestHandler"""
     
     server_version = "My_HTTP_Server/"
@@ -35,6 +36,15 @@ class MyHTTPRequestHandler(SimpleHTTPRequestHandler):
             self.send_response(HTTPStatus.NOT_FOUND)
             self.end_headers()
 
+    def do_POST(self):
+        print('path: ', self.path)
+        json_S = self.rfile.read(int(self.headers['Content-Length']))
+        print('json: ', json_S)
+        throw = json.loads(json_S)
+        print(throw)
+        
+        self.send_response(HTTPStatus.OK)
+        self.end_headers()
 
 
 
