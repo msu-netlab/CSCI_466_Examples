@@ -38,10 +38,12 @@ class MyHTTPRequestHandler(CGIHTTPRequestHandler):
 
     def do_POST(self):
         print('path: ', self.path)
-        json_S = self.rfile.read(int(self.headers['Content-Length']))
-        print('json: ', json_S)
-        throw = json.loads(json_S)
-        print(throw)
+        json_bytes = self.rfile.read(int(self.headers['Content-Length']))
+        print('json_bytes: ', json_bytes)
+        json_string = json.loads(json_bytes)
+        print('json_string: ', json_string)
+        throw = json.loads(json_string)
+        print('throw: ', throw['throw'])
         
         self.send_response(HTTPStatus.OK)
         self.end_headers()
